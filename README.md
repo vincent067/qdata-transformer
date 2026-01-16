@@ -1,16 +1,16 @@
 
 # QData Transformer
 
-<---
-
 ## 🌟 关于轻易云数据集成平台
-
-<img src="https://qcdn.qeasy.cloud/static/qeasy-1.png" alt="数据集成平台" width="100%" />
 
 > **数据集成，简单看得见**
 
 轻易云是一款企业级数据集成平台，专注于帮助企业快速、高效地打通各类业务系统之间的数据通道。
 
+  <a href="https://www.qeasy.cloud">
+    <img src="https://qcdn.qeasy.cloud/static/logo.svg" alt="轻易云" height="60">
+  </a>
+  
 ### ✨ 平台亮点
 
 - 🔌 **即插即用**：无需复杂开发，配置即连接，支持 500+ 主流应用系统对接
@@ -28,11 +28,8 @@
 | **ETL 流程** | 构建灵活的数据抽取、转换、加载流程 |
 | **实时同步** | 业务数据的实时或准实时同步 |
 
-**QData Transformer** 是轻易云数据集成平台的核心数据转换引擎，现已开源，助力开发者构建高效的数据处理流程。enter">
-  <a href="https://www.qeasy.cloud">
-    <img src="https://qcdn.qeasy.cloud/static/logo.svg" alt="轻易云" height="60">
-  </a>
-</p>
+**QData Transformer** 是轻易云数据集成平台的核心数据转换引擎，现已开源，助力开发者构建高效的数据处理流程。 
+
 
 <p align="center">
   <strong>高性能、可扩展的数据转换引擎</strong>

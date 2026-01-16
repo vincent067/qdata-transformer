@@ -1,9 +1,36 @@
 
 # QData Transformer
 
-<p align="center">
+<---
+
+## 🌟 关于轻易云数据集成平台
+
+<img src="https://qcdn.qeasy.cloud/static/qeasy-1.png" alt="数据集成平台" width="100%" />
+
+> **数据集成，简单看得见**
+
+轻易云是一款企业级数据集成平台，专注于帮助企业快速、高效地打通各类业务系统之间的数据通道。
+
+### ✨ 平台亮点
+
+- 🔌 **即插即用**：无需复杂开发，配置即连接，支持 500+ 主流应用系统对接
+- 👁️ **全程可视**：数据流动、转换过程、执行状态一目了然，如同"物流跟踪"般清晰透明
+- ⚡ **高性能引擎**：基于 Polars + DuckDB 构建，轻松处理百万级数据转换
+- 🛡️ **企业级可靠**：完善的错误处理、重试机制与监控告警，保障数据安全稳定
+- 🧩 **灵活扩展**：插件化架构设计，支持自定义转换器与数据源扩展
+
+### 🎯 适用场景
+
+| 场景 | 描述 |
+|------|------|
+| **系统集成** | ERP、CRM、WMS 等企业系统间的数据同步 |
+| **数据迁移** | 跨平台、跨数据库的数据迁移与转换 |
+| **ETL 流程** | 构建灵活的数据抽取、转换、加载流程 |
+| **实时同步** | 业务数据的实时或准实时同步 |
+
+**QData Transformer** 是轻易云数据集成平台的核心数据转换引擎，现已开源，助力开发者构建高效的数据处理流程。enter">
   <a href="https://www.qeasy.cloud">
-    <img src="https://qeasy-1305182502.cos.ap-guangzhou.myqcloud.com/v2/images/logo-2.png" alt="轻易云" height="60">
+    <img src="https://qcdn.qeasy.cloud/static/logo.svg" alt="轻易云" height="60">
   </a>
 </p>
 
@@ -15,7 +42,6 @@
   由 <a href="https://www.qeasy.cloud">广东轻亿云软件科技有限公司</a> 开发<br>
   「轻易云数据集成平台」核心组件
 </p>
-
 <p align="center">
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python 3.8+"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
@@ -32,6 +58,7 @@
 > **数据集成，简单看得见**  
 > 从对接开始，到落地完成，全程清晰可控。  
 > 无论是企业内部系统还是第三方平台，轻易云都能快速打通数据通道，无需复杂开发，配置即连接。数据怎么流动、如何转换、是否成功，全都清晰展示。就像“物流跟踪”一样，随时查看状态，让集成省时省力又省心。
+<img src="https://qcdn.qeasy.cloud/static/qeasy-1.png" alt="数据集成平台" width="100%" />
 
 **QData Transformer** 是轻易云数据集成平台的核心数据转换引擎，现已开源，助力开发者构建高效的数据处理流程。
 

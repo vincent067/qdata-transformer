@@ -4,10 +4,12 @@
 测试转换器的性能和边界情况。
 """
 
-import pytest
-import polars as pl
+import random
 import time
 from typing import List, Any
+
+import pytest
+import polars as pl
 
 from qdata_transformer import (
     TransformChain,
@@ -23,7 +25,6 @@ class TestPerformance:
     @pytest.fixture
     def large_dataset(self) -> pl.DataFrame:
         """生成大数据集"""
-        import random
         n = 100000  # 10万行
 
         return pl.DataFrame({

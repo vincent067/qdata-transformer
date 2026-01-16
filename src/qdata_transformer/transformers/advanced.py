@@ -14,6 +14,7 @@ import polars as pl
 from qdata_transformer.base import BaseTransformer
 from qdata_transformer.exceptions import TransformerConfigError, TransformExecutionError
 from qdata_transformer.registry import TransformerRegistry
+from qdata_transformer.utils import quote_identifier, format_sql_value
 
 
 @TransformerRegistry.register("duckdb_join")
@@ -154,7 +155,9 @@ class DuckDBJoinTransformer(BaseTransformer):
         for col in right_columns:
             if col in right_on:
                 continue  # JOIN 键不重复选择
-            select_parts.append(f"right_table.{self._quote(col)} AS {self._quote(col + suffix)}")
+            select_parts.append(
+                f"right_table.{quote_identifier(col)} AS {quote_identifier(col + suffix)}"
+            )
 
         sql = f"SELECT {', '.join(select_parts)} FROM left_table {sql_join_type} right_table"
 
@@ -163,17 +166,12 @@ class DuckDBJoinTransformer(BaseTransformer):
             on_conditions = []
             for left_col, right_col in zip(left_on, right_on):
                 on_conditions.append(
-                    f"left_table.{self._quote(left_col)} = right_table.{self._quote(right_col)}"
+                    f"left_table.{quote_identifier(left_col)} = "
+                    f"right_table.{quote_identifier(right_col)}"
                 )
             sql += f" ON {' AND '.join(on_conditions)}"
 
         return sql
-
-    def _quote(self, identifier: str) -> str:
-        """引用标识符"""
-        if not identifier.isidentifier():
-            return f'"{identifier}"'
-        return identifier
 
 
 @TransformerRegistry.register("duckdb_window")
@@ -351,7 +349,7 @@ class DuckDBWindowTransformer(BaseTransformer):
                 func_name, column, partition_by, order_by, frame, func
             )
 
-            select_parts.append(f"{window_expr} AS {self._quote(alias)}")
+            select_parts.append(f"{window_expr} AS {quote_identifier(alias)}")
 
         return f"SELECT {', '.join(select_parts)} FROM data"
 
@@ -374,12 +372,15 @@ class DuckDBWindowTransformer(BaseTransformer):
                 func_call = f"{func_name.upper()}()"
 
         elif func_name in self.OFFSET_FUNCTIONS:
-            quoted_col = self._quote(column) if column else "*"
+            quoted_col = quote_identifier(column) if column else "*"
             if func_name in ("lag", "lead"):
                 offset = config.get("offset", 1)
                 default = config.get("default")
                 if default is not None:
-                    func_call = f"{func_name.upper()}({quoted_col}, {offset}, {self._format_value(default)})"
+                    func_call = (
+                        f"{func_name.upper()}({quoted_col}, {offset}, "
+                        f"{format_sql_value(default)})"
+                    )
                 else:
                     func_call = f"{func_name.upper()}({quoted_col}, {offset})"
             elif func_name == "nth_value":
@@ -392,7 +393,7 @@ class DuckDBWindowTransformer(BaseTransformer):
             if func_name == "count" and not column:
                 func_call = "COUNT(*)"
             else:
-                quoted_col = self._quote(column) if column else "*"
+                quoted_col = quote_identifier(column) if column else "*"
                 func_call = f"{func_name.upper()}({quoted_col})"
 
         else:
@@ -402,7 +403,7 @@ class DuckDBWindowTransformer(BaseTransformer):
         over_parts = []
 
         if partition_by:
-            quoted_partition = [self._quote(col) for col in partition_by]
+            quoted_partition = [quote_identifier(col) for col in partition_by]
             over_parts.append(f"PARTITION BY {', '.join(quoted_partition)}")
 
         if order_by:
@@ -413,18 +414,3 @@ class DuckDBWindowTransformer(BaseTransformer):
 
         over_clause = " ".join(over_parts) if over_parts else ""
         return f"{func_call} OVER ({over_clause})"
-
-    def _quote(self, identifier: str) -> str:
-        """引用标识符"""
-        if not identifier.isidentifier():
-            return f'"{identifier}"'
-        return identifier
-
-    def _format_value(self, value: Any) -> str:
-        """格式化值"""
-        if value is None:
-            return "NULL"
-        elif isinstance(value, str):
-            return f"'{value}'"
-        else:
-            return str(value)

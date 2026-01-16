@@ -131,7 +131,11 @@ class PolarsDeduplicateTransformer(BaseTransformer):
 
     参数说明：
         - columns: 去重依据的列（可选，为空时对所有列去重）
-        - keep: 保留策略 ("first", "last", "none")
+        - keep: 保留策略
+            - "first": 保留第一个出现的记录
+            - "last": 保留最后一个出现的记录
+            - "any": 保留任意一个（不保证顺序）
+            - "none": 删除所有重复记录
         - maintain_order: 是否保持原始顺序
 
     使用示例：

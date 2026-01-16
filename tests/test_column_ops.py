@@ -346,8 +346,6 @@ class TestPolarsColumnOpsTransformer:
 
     def test_datetime_extract_year(self) -> None:
         """测试提取年份"""
-        from datetime import datetime
-
         data = pl.DataFrame({
             "date": [datetime(2024, 1, 15), datetime(2024, 6, 20), datetime(2025, 12, 31)]
         })
@@ -364,8 +362,6 @@ class TestPolarsColumnOpsTransformer:
 
     def test_datetime_extract_month(self) -> None:
         """测试提取月份"""
-        from datetime import datetime
-
         data = pl.DataFrame({
             "date": [datetime(2024, 1, 15), datetime(2024, 6, 20), datetime(2024, 12, 31)]
         })
@@ -382,8 +378,6 @@ class TestPolarsColumnOpsTransformer:
 
     def test_datetime_extract_day(self) -> None:
         """测试提取日"""
-        from datetime import datetime
-
         data = pl.DataFrame({
             "date": [datetime(2024, 1, 15), datetime(2024, 6, 20), datetime(2024, 12, 31)]
         })

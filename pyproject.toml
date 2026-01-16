@@ -98,7 +98,7 @@ known_first_party = ["qdata_transformer"]
 skip = [".git", ".mypy_cache", ".pytest_cache", ".venv", "build", "dist"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

@@ -22,6 +22,22 @@ QData Transformer - 高性能、可扩展的数据转换引擎
     ...     .add("duckdb_aggregation", {"group_by": [...], "aggregations": [...]})
     ... )
     >>> result = chain.execute(data)
+
+可用转换器：
+    Polars 转换器（高性能向量化处理）：
+    - polars_field_mapping: 字段映射转换
+    - polars_multi_mapping: 批量映射转换
+    - polars_filter: 数据过滤
+    - polars_column_ops: 列运算
+    - polars_split: 数据拆分
+    - polars_deduplicate: 数据去重
+    - polars_merge: 数据合并
+
+    DuckDB 转换器（SQL 分析能力）：
+    - duckdb_aggregation: SQL 聚合
+    - duckdb_sql: 自定义 SQL
+    - duckdb_join: SQL JOIN
+    - duckdb_window: 窗口函数
 """
 
 __version__ = "1.0.0"
@@ -50,12 +66,25 @@ from qdata_transformer.exceptions import (
     TransformExecutionError,
 )
 
-# 转换器
+# Polars 转换器
 from qdata_transformer.transformers.mapping import PolarsFieldMappingTransformer
 from qdata_transformer.transformers.multi_mapping import PolarsMultiMappingTransformer
+from qdata_transformer.transformers.filter import PolarsFilterTransformer
+from qdata_transformer.transformers.column_ops import PolarsColumnOpsTransformer
+from qdata_transformer.transformers.split import (
+    PolarsSplitTransformer,
+    PolarsDeduplicateTransformer,
+    PolarsMergeTransformer,
+)
+
+# DuckDB 转换器
 from qdata_transformer.transformers.aggregation import (
     DuckDBAggregationTransformer,
     DuckDBSQLTransformer,
+)
+from qdata_transformer.transformers.advanced import (
+    DuckDBJoinTransformer,
+    DuckDBWindowTransformer,
 )
 
 # 公开的 API
@@ -79,9 +108,17 @@ __all__ = [
     "MappingConfigError",
     "AggregationConfigError",
     "InvalidColumnError",
-    # 转换器
+    # Polars 转换器
     "PolarsFieldMappingTransformer",
     "PolarsMultiMappingTransformer",
+    "PolarsFilterTransformer",
+    "PolarsColumnOpsTransformer",
+    "PolarsSplitTransformer",
+    "PolarsDeduplicateTransformer",
+    "PolarsMergeTransformer",
+    # DuckDB 转换器
     "DuckDBAggregationTransformer",
     "DuckDBSQLTransformer",
+    "DuckDBJoinTransformer",
+    "DuckDBWindowTransformer",
 ]

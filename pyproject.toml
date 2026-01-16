@@ -1,0 +1,143 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qdata-transformer"
+version = "1.0.0"
+description = "High-performance, extensible data transformation engine – core component of QEasy Cloud Data Integration Platform"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "广东轻亿云软件科技有限公司", email = "opensource@qeasy.cloud"},
+]
+maintainers = [
+    {name = "QEasy Cloud Team", email = "opensource@qeasy.cloud"},
+]
+keywords = [
+    "data",
+    "transformation",
+    "etl",
+    "polars",
+    "duckdb",
+    "data-processing",
+    "data-pipeline",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "polars>=0.20.0",
+    "duckdb>=0.9.0",
+    "pyarrow>=14.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+    "pre-commit>=3.0.0",
+]
+examples = [
+    "numpy>=1.24.0",
+]
+all = [
+    "qdata-transformer[dev,examples]",
+]
+
+[project.urls]
+Homepage = "https://www.qeasy.cloud"
+Documentation = "https://qdata-transformer.readthedocs.io"
+Repository = "https://github.com/vincent067/qdata-transformer.git"
+Issues = "https://github.com/vincent067/qdata-transformer/issues"
+Changelog = "https://github.com/vincent067/qdata-transformer/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+qdata_transformer = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["qdata_transformer"]
+skip = [".git", ".mypy_cache", ".pytest_cache", ".venv", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "polars.*",
+    "duckdb.*",
+    "numpy.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "performance: marks tests as performance tests",
+]
+
+[tool.coverage.run]
+source = ["qdata_transformer"]
+branch = true
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]
